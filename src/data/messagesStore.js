@@ -1,4 +1,5 @@
 const messages = [
+  /*Needed Format:
   {
     text: "Hi there!",
     user: "Amando",
@@ -9,16 +10,7 @@ const messages = [
       year: 2026,
     },
   },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    userId: crypto.randomUUID(),
-    added: {
-      time: "10:00",
-      month: "Jan",
-      year: 2026,
-    },
-  },
+  */
 ];
 
 function getMessages(number) {

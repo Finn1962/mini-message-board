@@ -158,6 +158,11 @@ body {
 .profile-name {
   font-size: 1.3rem;
   font-weight: 900;
+  white-space: nowrap;
+}
+
+a {
+  text-decoration: none;
 }
 
 .git-button {
@@ -348,4 +353,11 @@ hr {
   width: 100vw;
   transform: scale(1.02);
   user-select: none;
+}
+
+@media (max-width: 500px) {
+  .profile-name {
+    font-size: 1.3rem;
+    white-space: wrap;
+  }
 }

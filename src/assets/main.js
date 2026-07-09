@@ -38,6 +38,7 @@ const months = [
 
 let numberOfMessages = 50;
 
+//code that must be executed directly
 (async () => {
   profileName.textContent = user.name;
   profileLetter.textContent = user.name[0].toUpperCase();
@@ -46,6 +47,7 @@ let numberOfMessages = 50;
     messagesContainer.scrollHeight - messagesContainer.clientHeight;
 })();
 
+//checks if the username input container is needed
 if (!user.name) {
   nameInputContainer.style.display = "flex";
   overlay.style.display = "block";
@@ -67,6 +69,7 @@ if (!user.name) {
   });
 }
 
+//checks if the user has scrolled up and fetches more messages if necessary
 messagesContainer.addEventListener("scroll", async () => {
   if (messagesContainer.scrollTop === 0) {
     const oldScrollHeight = messagesContainer.scrollHeight;
@@ -83,15 +86,15 @@ messagesContainer.addEventListener("scroll", async () => {
   }
 });
 
+//fetches all messages from the server
 async function getMessages() {
   const res = await fetch(`messages?numberOfMessages=${numberOfMessages}`);
   const data = await res.json();
   return data;
 }
 
+//sends a new message to the server and thereafter returns all messages
 async function sendNewMessage() {
-  if (messagesInput.value === "") return;
-
   const localDate = new Date();
 
   const res = await fetch(`newMessage?numberOfMessages=${numberOfMessages}`, {
@@ -118,7 +121,9 @@ async function sendNewMessage() {
   return data;
 }
 
+//waiting for a click on the send button
 messagesButton.addEventListener("click", async () => {
+  if (messagesInput.value === "") return;
   const messages = await sendNewMessage();
   updateMessages(messages);
   messagesInput.value = "";
@@ -127,8 +132,10 @@ messagesButton.addEventListener("click", async () => {
     messagesContainer.scrollHeight - messagesContainer.clientHeight;
 });
 
+//Waiting for Enter when entering a message
 messagesInput.addEventListener("keydown", async (event) => {
   if (event.key !== "Enter") return;
+  if (messagesInput.value === "") return;
   const messages = await sendNewMessage();
   updateMessages(messages);
   messagesInput.value = "";
@@ -137,11 +144,13 @@ messagesInput.addEventListener("keydown", async (event) => {
     messagesContainer.scrollHeight - messagesContainer.clientHeight;
 });
 
+//fetches all messages every 3 seconds
 setInterval(async () => {
   const messages = await getMessages();
   updateMessages(messages);
 }, 3000);
 
+//updates all messages in the DOM
 function updateMessages(messages) {
   messagesContainer.replaceChildren();
 
@@ -155,6 +164,7 @@ function updateMessages(messages) {
   });
 }
 
+//generates the HTML for a message
 function createMessageHTML({ text, user, userId, added }) {
   const message = document.createElement("div");
   message.classList.add("message");
