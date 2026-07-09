@@ -7,6 +7,7 @@ const nameConfirmButton = document.getElementById("name_confirm_button");
 const overlay = document.getElementById("overlay");
 const profileLetter = document.getElementById("profile_letter");
 const profileName = document.getElementById("profile_name");
+const loader = document.getElementById("loader");
 
 const user = {
   name: localStorage.getItem("userName")
@@ -42,9 +43,18 @@ let numberOfMessages = 50;
 (async () => {
   profileName.textContent = user.name;
   profileLetter.textContent = user.name[0].toUpperCase();
-  updateMessages(await getMessages());
-  messagesContainer.scrollTop =
-    messagesContainer.scrollHeight - messagesContainer.clientHeight;
+  try {
+    loader.style.display = "grid";
+    const res = await fetch(`messages?numberOfMessages=${numberOfMessages}`);
+    const data = await res.json();
+    updateMessages(data);
+    messagesContainer.scrollTop =
+      messagesContainer.scrollHeight - messagesContainer.clientHeight;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    loader.style.display = "none";
+  }
 })();
 
 //checks if the username input container is needed
@@ -88,37 +98,45 @@ messagesContainer.addEventListener("scroll", async () => {
 
 //fetches all messages from the server
 async function getMessages() {
-  const res = await fetch(`messages?numberOfMessages=${numberOfMessages}`);
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`messages?numberOfMessages=${numberOfMessages}`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //sends a new message to the server and thereafter returns all messages
 async function sendNewMessage() {
   const localDate = new Date();
 
-  const res = await fetch(`newMessage?numberOfMessages=${numberOfMessages}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      text: messagesInput.value,
-      user: user.name,
-      added: {
-        time: localDate.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-          hour12: true,
-        }),
-        month: months[localDate.getMonth()],
-        year: localDate.getFullYear(),
+  try {
+    const res = await fetch(`newMessage?numberOfMessages=${numberOfMessages}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-    }),
-  });
+      body: JSON.stringify({
+        text: messagesInput.value,
+        user: user.name,
+        added: {
+          time: localDate.toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+          }),
+          month: months[localDate.getMonth()],
+          year: localDate.getFullYear(),
+        },
+      }),
+    });
 
-  const data = await res.json();
-  return data;
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 //waiting for a click on the send button
