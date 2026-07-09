@@ -123,7 +123,7 @@ async function sendNewMessage() {
       body: JSON.stringify({
         text: messagesInput.value,
         user: user.name,
-        uderId: user.id,
+        userId: user.id,
         added: {
           time: localDate.toLocaleTimeString("en-US", {
             hour: "numeric",
@@ -175,11 +175,10 @@ setInterval(async () => {
 //updates all messages in the DOM
 function updateMessages(messages) {
   messagesContainer.replaceChildren();
-
   messages.forEach((message) => {
     createMessageHTML({
       text: message.text,
-      user: message.user,
+      userName: message.user,
       userId: message.userId,
       added: message.added,
     });
@@ -187,16 +186,18 @@ function updateMessages(messages) {
 }
 
 //generates the HTML for a message
-function createMessageHTML({ text, user, userId, added }) {
+function createMessageHTML({ text, userName, userId, added }) {
   const message = document.createElement("div");
   message.classList.add("message");
+  console.log("1", userId);
+  console.log("2", user.id);
   if (userId === user.id) message.classList.add("--is-by-user");
 
   const meta = document.createElement("div");
   meta.classList.add("message-meta");
 
   const userElement = document.createElement("p");
-  userElement.textContent = user;
+  userElement.textContent = userName;
   userElement.classList.add("user-name");
 
   const timeElement = document.createElement("p");
