@@ -189,8 +189,6 @@ function updateMessages(messages) {
 function createMessageHTML({ text, userName, userId, added }) {
   const message = document.createElement("div");
   message.classList.add("message");
-  console.log("1", userId);
-  console.log("2", user.id);
   if (userId === user.id) message.classList.add("--is-by-user");
 
   const meta = document.createElement("div");
