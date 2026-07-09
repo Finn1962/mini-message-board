@@ -41,8 +41,11 @@ let numberOfMessages = 50;
 
 //code that must be executed directly
 (async () => {
-  profileName.textContent = user.name;
-  profileLetter.textContent = user.name[0].toUpperCase();
+  if (user.name) {
+    profileName.textContent = user.name;
+    profileLetter.textContent = user.name[0].toUpperCase();
+  }
+
   try {
     loader.style.display = "grid";
     const res = await fetch(`messages?numberOfMessages=${numberOfMessages}`);
@@ -120,6 +123,7 @@ async function sendNewMessage() {
       body: JSON.stringify({
         text: messagesInput.value,
         user: user.name,
+        uderId: user.id,
         added: {
           time: localDate.toLocaleTimeString("en-US", {
             hour: "numeric",
