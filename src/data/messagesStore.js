@@ -2,25 +2,27 @@ const messages = [
   {
     text: "Hi there!",
     user: "Amando",
+    userId: crypto.randomUUID(),
     added: {
-      time: "12:49 AM",
-      month: "JUL",
-      year: "2024",
+      time: "10:00",
+      month: "Jan",
+      year: 2026,
     },
   },
   {
     text: "Hello World!",
     user: "Charles",
+    userId: crypto.randomUUID(),
     added: {
-      time: "12:49 AM",
-      month: "JUL",
-      year: "2024",
+      time: "10:00",
+      month: "Jan",
+      year: 2026,
     },
   },
 ];
 
-function getMessages() {
-  return messages;
+function getMessages(number) {
+  return messages.slice(-number);
 }
 
 function addMessage(message) {

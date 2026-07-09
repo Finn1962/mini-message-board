@@ -1,33 +1,260 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
+:root {
+  --first-main-color: #363636;
+  --second-main-color: #1c1c1c;
+  --third-main-color: #3682f4;
+}
+
 body {
   background-color: white;
-  color: black;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  padding: 20px;
+  padding: 20px 20px;
   font-family: "Roboto", sans-serif;
+}
+
+.name-input-wrapper {
+  width: 100%;
+  max-width: 400px;
+  z-index: 3;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 30px;
+}
+
+.name-input-container {
+  width: 100%;
+  background-color: var(--second-main-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  display: none;
+  border-radius: 20px;
+  filter: drop-shadow(0px 0px 5px #0000003e);
+  padding: 30px;
+}
+
+.name-input-container h1 {
+  text-align: center;
+}
+
+.name-input-container p {
+  text-align: center;
+  opacity: 0.5;
+}
+
+.name-input {
+  padding: 20px 0;
+}
+
+.name-confirm-button {
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6em;
+  height: 2.6em;
+  line-height: 2.5em;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 10px 0 0 0;
+  font-size: 17px;
+  z-index: 1;
+  color: var(--third-main-color);
+  border: 2px solid var(--third-main-color);
+  border-radius: 10px;
+  position: relative;
+  background-color: white;
+}
+
+.name-confirm-button::before {
+  position: absolute;
+  content: "";
+  background: var(--third-main-color);
+  width: 150px;
+  height: 200px;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.name-confirm-button:hover {
+  color: white;
+}
+
+.name-confirm-button:before {
+  top: 100%;
+  left: 100%;
+  transition: 0.3s all;
+}
+
+.name-confirm-button:hover::before {
+  top: -30px;
+  left: -30px;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.6;
+  z-index: 2;
+  display: none;
 }
 
 .wrapper {
   width: 100%;
-  max-width: 700px;
-  background-color: rgb(220, 220, 220);
+  max-width: 500px;
+  background-color: var(--second-main-color);
+  z-index: 1;
+  border-radius: 30px;
+  filter: drop-shadow(0px 0px 5px #00000071);
+}
+
+.header-container {
+  width: 100%;
+  height: auto;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: min-content;
+}
+
+.profile-image {
+  background-color: #000000;
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid white 1px;
+}
+
+.profile-letter {
+  font-size: 1.8rem;
+  font-weight: 400;
+  transform: translateY(1px);
+}
+
+.profile-name {
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.git-button {
+  background: transparent;
+  position: relative;
+  padding: 0px 15px;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgb(36, 41, 46);
+  border-radius: 25px;
+  outline: none;
+  overflow: hidden;
+  color: #969696;
+  transition: color 0.3s 0.1s ease-out;
+  text-align: center;
+}
+
+.git-button span {
+  margin: 10px;
+}
+
+.git-button::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  content: "";
+  border-radius: 50%;
+  display: block;
+  width: 20em;
+  height: 20em;
+  left: -5em;
+  text-align: center;
+  transition: box-shadow 0.5s ease-out;
+  z-index: -1;
+}
+
+.git-button:hover {
+  color: #fff;
+  border: 1px solid rgb(36, 41, 46);
+}
+
+.git-button img {
+  filter: brightness(0) invert(0.5);
+  transition: filter 0.5s ease-out;
+}
+
+.git-button:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.git-button:hover::before {
+  box-shadow: inset 0 0 0 10em var(--first-main-color);
+}
+
+hr {
+  margin: 0 50px;
+  background-color: var(--first-main-color);
+  border: none;
+  height: 1px;
+  margin-bottom: 20px;
 }
 
 .messages-container {
   width: 100%;
-  height: 500px;
+  height: calc(100vh - 250px);
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  gap: 15px;
-  padding: 10px;
+  gap: 25px;
+  padding: 10px 50px;
   overflow-y: auto;
-  scrollbar-color: #4a5568 transparent;
+  scrollbar-color: #383838 transparent;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  gap: 5px;
+}
+
+.--is-by-user {
+  align-self: end;
+  align-items: end;
+}
+
+.--is-by-user .message-text {
+  background-color: #1c8eff;
 }
 
 .message-meta {
@@ -38,13 +265,87 @@ body {
   font-size: 0.8rem;
 }
 
+.user-name {
+  font-weight: 900;
+}
+
+.message-time {
+  opacity: 0.5;
+}
+
 .message-text {
-  background-color: rgb(243, 243, 243);
-  padding: 10px;
+  background-color: var(--first-main-color);
+  padding: 8px 12px;
   width: fit-content;
+  border-radius: 106px;
 }
 
 .input-container {
   width: 100%;
-  padding: 10px;
+  padding: 25px 50px;
+}
+
+.messageBox {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  border-radius: 10px;
+  border: 1px solid var(--first-main-color);
+}
+.messageBox:focus-within {
+  border: 1px solid #606060;
+}
+
+.message-input {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding-left: 10px;
+  color: #f5f5f5;
+}
+.message-input:focus ~ .send-button img path,
+.message-input:valid ~ .send-button img path {
+  fill: #3c3c3c;
+  stroke: white;
+}
+
+.send-button {
+  width: fit-content;
+  height: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.send-button img {
+  height: 18px;
+  transition: all 0.3s;
+}
+.send-button img path {
+  transition: all 0.3s;
+}
+.send-button:hover img path {
+  fill: var(--third-main-color);
+  stroke: white;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  z-index: 0;
+  height: 100vh;
+  width: 100vw;
+  transform: scale(1.02);
+  user-select: none;
 }

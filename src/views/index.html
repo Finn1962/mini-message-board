@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini Message Board</title>
+    <link rel="stylesheet" href="/assets/reset.css" />
+    <link rel="stylesheet" href="/assets/index.css" />
+    <script src="/assets/main.js" defer></script>
+  </head>
+  <body>
+    <div class="name-input-wrapper">
+      <div class="name-input-container" id="name_input_container">
+        <h1>Enter a username</h1>
+        <p>The username can only be chosen once!</p>
+
+        <div class="messageBox">
+          <input
+            id="name_input"
+            class="message-input name-input"
+            type="text"
+            placeholder="Name..."
+            required=""
+          />
+        </div>
+
+        <button class="name-confirm-button" id="name_confirm_button">
+          Enter
+        </button>
+      </div>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div class="wrapper">
+      <div class="header-container">
+        <div class="profile">
+          <div class="profile-image">
+            <p class="profile-letter" id="profile_letter"></p>
+          </div>
+          <p class="profile-name" id="profile_name"></p>
+        </div>
+
+        <button class="git-button">
+          <img src="/assets/git-icon.svg" />
+          <span>GitHub</span>
+        </button>
+      </div>
+      <hr />
+
+      <div class="messages-container" id="messages_container"></div>
+
+      <div class="input-container">
+        <div class="messageBox">
+          <input
+            id="message_input"
+            class="message-input"
+            type="text"
+            placeholder="Message..."
+            required=""
+          />
+          <button class="send-button" id="message_button">
+            <img src="/assets/send-icon.svg" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <img src="/assets/background.svg" class="background" draggable="false" />
+  </body>
+</html>
