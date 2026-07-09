@@ -340,7 +340,7 @@ hr {
   background-color: var(--first-main-color);
   padding: 10px 20px;
   width: fit-content;
-  border-radius: 106px;
+  border-radius: 25px;
 }
 
 .input-container {
