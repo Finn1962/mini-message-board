@@ -237,7 +237,7 @@ a {
   border-radius: 25px;
   outline: none;
   overflow: hidden;
-  color: #969696;
+  color: #a1a1a1;
   transition: color 0.3s 0.1s ease-out;
   text-align: center;
 }
@@ -270,7 +270,7 @@ a {
 }
 
 .git-button img {
-  filter: brightness(0) invert(0.5);
+  filter: brightness(0) invert(0.6);
   transition: filter 0.5s ease-out;
 }
 
@@ -279,7 +279,7 @@ a {
 }
 
 .git-button:hover::before {
-  box-shadow: inset 0 0 0 10em var(--first-main-color);
+  box-shadow: inset 0 0 0 10em var(--third-main-color);
 }
 
 hr {
