@@ -9,6 +9,8 @@ const profileLetter = document.getElementById("profile_letter");
 const profileName = document.getElementById("profile_name");
 const loader = document.getElementById("loader");
 
+let isScrollEnd = true;
+
 const user = {
   name: localStorage.getItem("userName")
     ? localStorage.getItem("userName")
@@ -99,6 +101,17 @@ messagesContainer.addEventListener("scroll", async () => {
   }
 });
 
+messagesContainer.addEventListener("scroll", () => {
+  if (
+    messagesContainer.scrollTop + messagesContainer.clientHeight >=
+    messagesContainer.scrollHeight
+  ) {
+    isScrollEnd = true;
+  } else {
+    isScrollEnd = false;
+  }
+});
+
 //fetches all messages from the server
 async function getMessages() {
   try {
@@ -170,6 +183,9 @@ messagesInput.addEventListener("keydown", async (event) => {
 setInterval(async () => {
   const messages = await getMessages();
   updateMessages(messages);
+  if (isScrollEnd)
+    messagesContainer.scrollTop =
+      messagesContainer.scrollHeight - messagesContainer.clientHeight;
 }, 3000);
 
 //updates all messages in the DOM

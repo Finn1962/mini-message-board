@@ -1,16 +1,14 @@
 const messages = [
-  /*Needed Format:
   {
-    text: "Hi there!",
-    user: "Amando",
+    text: "Hello, this is my mini message board. If you like it, please follow me on GitHub. Have fun with it.",
+    user: "Finn Schmidt",
     userId: crypto.randomUUID(),
     added: {
-      time: "10:00",
-      month: "Jan",
+      time: "10:53",
+      month: "Jul",
       year: 2026,
     },
   },
-  */
 ];
 
 function getMessages(number) {
