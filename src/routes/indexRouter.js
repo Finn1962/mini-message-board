@@ -1,20 +1,19 @@
 const express = require("express");
 const path = require("path");
 const router = express.Router();
-
-const messageStore = require("../data/messagesStore.js");
+const querys = require("../db/queries.js");
 
 router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../views/index.html"));
+  res.sendFile(path.join(__dirname, "../assets/index.html"));
 });
 
-router.get("/messages", (req, res) => {
-  res.json(messageStore.getMessages(req.query.numberOfMessages));
+router.get("/messages", async (req, res) => {
+  res.json(await querys.getAllMessages());
 });
 
-router.post("/newMessage", (req, res) => {
-  messageStore.addMessage(req.body);
-  res.json(messageStore.getMessages(req.query.numberOfMessages));
+router.post("/newMessage", async (req, res) => {
+  await querys.insertMessage(req.body);
+  res.json(await querys.getAllMessages());
 });
 
 module.exports = router;

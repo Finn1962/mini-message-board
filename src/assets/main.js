@@ -124,9 +124,7 @@ async function getMessages() {
 }
 
 //sends a new message to the server and thereafter returns all messages
-async function sendNewMessage() {
-  const localDate = new Date();
-
+async function sendMessage() {
   try {
     const res = await fetch(`newMessage?numberOfMessages=${numberOfMessages}`, {
       method: "POST",
@@ -135,17 +133,8 @@ async function sendNewMessage() {
       },
       body: JSON.stringify({
         text: messagesInput.value,
-        user: user.name,
-        userId: user.id,
-        added: {
-          time: localDate.toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
-          }),
-          month: months[localDate.getMonth()],
-          year: localDate.getFullYear(),
-        },
+        user_name: user.name,
+        user_id: user.id,
       }),
     });
 
@@ -159,7 +148,7 @@ async function sendNewMessage() {
 //waiting for a click on the send button
 messagesButton.addEventListener("click", async () => {
   if (messagesInput.value === "") return;
-  const messages = await sendNewMessage();
+  const messages = await sendMessage();
   updateMessages(messages);
   messagesInput.value = "";
 
@@ -171,7 +160,7 @@ messagesButton.addEventListener("click", async () => {
 messagesInput.addEventListener("keydown", async (event) => {
   if (event.key !== "Enter") return;
   if (messagesInput.value === "") return;
-  const messages = await sendNewMessage();
+  const messages = await sendMessage();
   updateMessages(messages);
   messagesInput.value = "";
 
@@ -194,28 +183,28 @@ function updateMessages(messages) {
   messages.forEach((message) => {
     createMessageHTML({
       text: message.text,
-      userName: message.user,
-      userId: message.userId,
-      added: message.added,
+      user_name: message.user_name,
+      user_id: message.user_id,
+      created_at: message.created_at,
     });
   });
 }
 
 //generates the HTML for a message
-function createMessageHTML({ text, userName, userId, added }) {
+function createMessageHTML({ text, user_name, user_id, created_at }) {
   const message = document.createElement("div");
   message.classList.add("message");
-  if (userId === user.id) message.classList.add("--is-by-user");
+  if (user_id === user.id) message.classList.add("--is-by-user");
 
   const meta = document.createElement("div");
   meta.classList.add("message-meta");
 
   const userElement = document.createElement("p");
-  userElement.textContent = userName;
+  userElement.textContent = user_name;
   userElement.classList.add("user-name");
 
   const timeElement = document.createElement("p");
-  timeElement.textContent = `${added.time}, ${added.month}, ${added.year}`;
+  timeElement.textContent = `${created_at.slice(11, 16)}, ${months[Number(created_at.slice(5, 7)) - 1]}, ${created_at.slice(0, 4)}`;
   timeElement.classList.add("message-time");
 
   meta.append(userElement, timeElement);
