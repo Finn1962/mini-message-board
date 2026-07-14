@@ -204,7 +204,7 @@ function createMessageHTML({ text, user_name, user_id, created_at }) {
   userElement.classList.add("user-name");
 
   const timeElement = document.createElement("p");
-  timeElement.textContent = `${created_at.slice(11, 16)}, ${months[Number(created_at.slice(5, 7)) - 1]}-${created_at.slice(8, 10)}, ${created_at.slice(0, 4)}`;
+  timeElement.textContent = `${created_at.slice(11, 16)}, ${created_at.slice(8, 10)}.${months[Number(created_at.slice(5, 7)) - 1]}, ${created_at.slice(0, 4)}`;
   timeElement.classList.add("message-time");
 
   meta.append(userElement, timeElement);
